@@ -1,0 +1,13 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+}
+#mapa {
+    height: 400px;
+    width: 80%;
+    margin: 20px auto;
+    border: 2px solid black;
+}
+#controles {
+    margin: 10px;
+}
