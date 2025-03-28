@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const mapa = new Mapa();
+    const map = new Map();
     const inputCSV = document.getElementById("cargarCSV");
     const lista = document.getElementById("lista");
     const filtroTipo = document.getElementById("filtroTipo");
@@ -12,17 +12,17 @@ document.addEventListener("DOMContentLoaded", () => {
         const file = event.target.files[0];
         if (file && file.type === "text/csv") {
             puntos = await Excel.readCSV(file);
-            actualizarListaYMapa();
+            actualizarListaYMap();
         } else {
             alert("El archivo no es un CSV válido.");
         }
     });
 
-    filtroTipo.addEventListener("change", actualizarListaYMapa);
-    inputBuscar.addEventListener("input", actualizarListaYMapa);
-    filtroOrden.addEventListener("change", actualizarListaYMapa);
+    filtroTipo.addEventListener("change", actualizarListaYMap);
+    inputBuscar.addEventListener("input", actualizarListaYMap);
+    filtroOrden.addEventListener("change", actualizarListaYMap);
 
-    function actualizarListaYMapa() {
+    function actualizarListaYMap() {
         const tipoSeleccionado = filtroTipo.value;
         const textoBusqueda = inputBuscar.value.toLowerCase();
         const ordenSeleccionado = filtroOrden.value;
@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         mostrarLista(puntosFiltrados);
-        mostrarEnMapa(puntosFiltrados, mapa);
+        mostrarEnMap(puntosFiltrados, map);
     }
 
     function mostrarLista(puntos) {
@@ -81,10 +81,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 
-    function mostrarEnMapa(puntos, mapa) {
-        mapa.limpiarMapa();
+    function mostrarEnMap(puntos, map) {
+        map.limpiarMap();
         puntos.forEach(punto => {
-            mapa.mostrarPunto(punto.latitud, punto.longitud, punto.nombre);
+            map.mostrarPunto(punto.latitud, punto.longitud, punto.nombre);
         });
     }
 });
