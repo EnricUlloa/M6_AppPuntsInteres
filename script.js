@@ -1,5 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
     const map = new Map();
+    
     const inputCSV = document.getElementById("cargarCSV");
     const lista = document.getElementById("lista");
     const filtroTipo = document.getElementById("filtroTipo");
@@ -49,10 +50,10 @@ document.addEventListener("DOMContentLoaded", () => {
         puntos.forEach(async (punto) => {
             const item = document.createElement("div");
             item.className = "punto";
-    
+
             // Esto coje la bandera del país con la API
             const banderaURL = await obtenerBandera(punto.pais);
-    
+
             item.innerHTML = `
                 <img src="${banderaURL}" alt="${punto.pais}" width="30">
                 <strong>${punto.nombre}</strong> - ${punto.ciudad} (${punto.tipo})
@@ -64,14 +65,13 @@ document.addEventListener("DOMContentLoaded", () => {
     // La funcion que hace posible obtner la bandera
     async function obtenerBandera(pais) {
         try {
-            
             if (pais.toLowerCase() === "espanya") {
                 pais = "Spain";
             }
-    
+
             const respuesta = await fetch(`https://restcountries.com/v3.1/name/${pais}?fields=flags`);
             const datos = await respuesta.json();
-    
+
             return datos[0]?.flags?.png || "";
         } catch (error) {
             console.error("Error al obtener la bandera:", error);
@@ -79,13 +79,11 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-
-
     function mostrarEnMap(puntos, map) {
         map.limpiarMap();
         puntos.forEach(punto => {
-            map.mostrarPunto(punto.latitud, punto.longitud, punto.nombre);
+            const descripcion = `<b>${punto.nombre}</b><br>${punto.direccion}<br>Puntuación: ${punto.puntuacion}`;
+            map.mostrarPunto(punto.latitud, punto.longitud, descripcion);
         });
     }
 });
-

@@ -8,19 +8,18 @@ class Excel {
                 const lineas = contenido.split("\n").map(line => line.split(";")); 
                 const objetos = [];
 
-                
                 for (let i = 1; i < lineas.length; i++) {
-                    const [pais, codi, ciutat, tipus, nom, direccio, latitud, longitud, horaris, preu, descripcio, puntuacio, moneda] = lineas[i];
+                    const [pais, codigo, ciudad, tipo, nombre, direccion, latitud, longitud, horaris, preu, descripcion, puntuacion, moneda] = lineas[i];
 
-                    if (!nom) continue;
+                    if (!nombre) continue;
 
                     let objeto;
-                    if (tipus === "Espai") {
-                        objeto = new PuntInteres(i, pais, ciutat, nom, direccio, tipus, parseFloat(latitud), parseFloat(longitud), parseFloat(puntuacio));
-                    } else if (tipus === "Atraccio") {
-                        objeto = new Atraccio(i, pais, ciutat, nom, direccio, tipus, parseFloat(latitud), parseFloat(longitud), parseFloat(puntuacio), horaris, parseFloat(preu), moneda);
-                    } else if (tipus === "Museu") {
-                        objeto = new Museu(i, pais, ciutat, nom, direccio, tipus, parseFloat(latitud), parseFloat(longitud), parseFloat(puntuacio), horaris, parseFloat(preu), moneda, descripcio);
+                    if (tipo === "Espai") {
+                        objeto = new PuntoInteres(i, pais, ciudad, nombre, direccion, tipo, parseFloat(latitud), parseFloat(longitud), parseFloat(puntuacion));
+                    } else if (tipo === "Atraccio") {
+                        objeto = new Atraccion(i, pais, ciudad, nombre, direccion, tipo, parseFloat(latitud), parseFloat(longitud), parseFloat(puntuacion), horaris, parseFloat(preu), moneda);
+                    } else if (tipo === "Museu") {
+                        objeto = new Museo(i, pais, ciudad, nombre, direccion, tipo, parseFloat(latitud), parseFloat(longitud), parseFloat(puntuacion), horaris, parseFloat(preu), moneda, descripcion);
                     }
 
                     objetos.push(objeto);

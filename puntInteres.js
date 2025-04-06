@@ -1,4 +1,4 @@
-class PuntInteres {
+class PuntoInteres {
     constructor(id, pais, ciudad, nombre, direccion, tipo, latitud, longitud, puntuacion) {
         this.id = id;
         this.pais = pais;
@@ -12,21 +12,21 @@ class PuntInteres {
     }
 }
 
-class Atraccio extends PuntInteres {
-    constructor(id, pais, ciudad, nombre, direccion, tipo, latitud, longitud, puntuacion, horaris, preu, moneda) {
+class Atraccion extends PuntoInteres {
+    constructor(id, pais, ciudad, nombre, direccion, tipo, latitud, longitud, puntuacion, horarios, precio, moneda) {
         super(id, pais, ciudad, nombre, direccion, tipo, latitud, longitud, puntuacion);
-        this.horaris = horaris;
-        this.preu = preu;
+        this.horarios = horarios;
+        this.precio = precio;
         this.moneda = moneda;
     }
 }
 
-class Museu extends PuntInteres {
-    constructor(id, pais, ciudad, nombre, direccion, tipo, latitud, longitud, puntuacion, horaris, preu, moneda, descripcio) {
+class Museo extends PuntoInteres {
+    constructor(id, pais, ciudad, nombre, direccion, tipo, latitud, longitud, puntuacion, horarios, precio, moneda, descripcion) {
         super(id, pais, ciudad, nombre, direccion, tipo, latitud, longitud, puntuacion);
-        this.horaris = horaris;
-        this.preu = preu;
+        this.horarios = horarios;
+        this.precio = precio;
         this.moneda = moneda;
-        this.descripcio = descripcio;
+        this.descripcion = descripcion;
     }
 }
