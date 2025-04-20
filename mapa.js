@@ -8,20 +8,34 @@ class Map {
             attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(this.map);
 
-        // Esto de aqui hace posible que salga el popup diciendo "Estas aqui"
-        this.marker = L.marker([41.40241, 2.19439]).addTo(this.map);
-        this.marker.bindPopup("<b>Estàs aquí</b>").openPopup();
+        this.mostrarPuntInicial(); // Cargar ubicación del usuario
+    }
+
+    mostrarPuntInicial() {
+        this.getPosicioActual().then(({ lat, lon }) => {
+            this.marker = L.marker([lat, lon]).addTo(this.map);
+            this.marker.bindPopup("<b>Estàs aquí</b>").openPopup();
+            this.actualitzarPosInitMapa(lat, lon);
+        }).catch(() => {
+            // Si no se puede obtener ubicación, usamos una por defecto
+            const lat = 41.40241, lon = 2.19439;
+            this.marker = L.marker([lat, lon]).addTo(this.map);
+            this.marker.bindPopup("<b>Estàs aquí</b>").openPopup();
+        });
+    }
+
+    actualitzarPosInitMapa(lat, lon) {
+        this.map.setView([lat, lon], 10); // Acercamos un poco más
     }
 
     mostrarPunto(lat, lon, descripcion) {
         L.marker([lat, lon]).addTo(this.map)
-            .bindPopup(descripcion)
-            .openPopup();
+            .bindPopup(descripcion);
     }
 
     limpiarMap() {
         this.map.eachLayer(layer => {
-            if (layer instanceof L.Marker) {
+            if (layer instanceof L.Marker && layer !== this.marker) {
                 this.map.removeLayer(layer);
             }
         });
@@ -30,12 +44,28 @@ class Map {
     mostraPunts(punts) {
         this.limpiarMap();
 
-        this.marker = L.marker([41.40241, 2.19439]).addTo(this.map);
-        this.marker.bindPopup("<b>Estàs aquí</b>").openPopup();
-
         punts.forEach(punt => {
-            const descripcio = `<b>${punt.nom}</b><br>${punt.direccio}<br>Puntuació: ${punt.puntuacio}`;
-            this.mostrarPunto(punt.latitud, punt.longitud, descripcio);
+            const descripcion = `
+                <b>${punt.nombre}</b><br>
+                ${punt.direccion}<br>
+                <i>Tipo:</i> ${punt.tipo}<br>
+                <i>Puntuación:</i> ${punt.puntuacion}
+            `;
+
+            this.mostrarPunto(punt.latitud, punt.longitud, descripcion);
+        });
+    }
+
+    async getPosicioActual() {
+        return new Promise((resolve, reject) => {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    pos => resolve({ lat: pos.coords.latitude, lon: pos.coords.longitude }),
+                    () => reject()
+                );
+            } else {
+                reject();
+            }
         });
     }
 }
