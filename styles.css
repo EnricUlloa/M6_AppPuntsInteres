@@ -6,7 +6,7 @@ body {
 }
 
 header {
-    background-color: #0d47a1;
+    background-color: #676869;
     color: white;
     padding: 20px;
     text-align: center;
@@ -20,24 +20,53 @@ header {
 #benvinguda {
     padding: 15px;
     text-align: center;
-    background-color: #e3f2fd;
+    background-color: rgb(164, 160, 160);
     font-weight: bold;
 }
 
 #controles {
     padding: 10px;
     text-align: center;
-    background-color: #f1f1f1;
+    background-color: #d4a6a6;
 }
 
 #lista {
     padding: 10px;
     text-align: center;
-    background-color: #fffde7;
+    background-color: #f5cfcf;
 }
 
 #map {
     height: 500px;
     margin: 20px;
     border: 2px solid black;
+}
+
+/*Para las tarjetas segun su tipo*/
+.tarjeta-espai {
+    background-color: #21e5f3;
+    padding: 10px;
+    margin: 10px;
+}
+
+.tarjeta-atraccion {
+    background-color: #3ee370;
+    padding: 10px;
+    margin: 10px;
+}
+
+.tarjeta-museo {
+    background-color: #cbac3d;
+    padding: 10px;
+    margin: 10px;
+}
+
+/*Este es el diseño para el boton eliminar en cada tarjeta*/
+button {
+    margin-top: 5px;
+    background-color: #c62828;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    cursor: pointer;
 }
