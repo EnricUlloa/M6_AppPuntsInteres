@@ -1,11 +1,23 @@
-class Excel {//declaramso calse llamada Excel
-    static async readCSV(file) {//definiemos que sea un metodo estatico y asincron
+class Excel {//declaramos una clase llamada Excel con un metodo asincrono de nombre readCSV que procesa un archivo CSV
+    static async readCSV(file) {//definiemos que sea un metodo estatico y asincron 
         return new Promise((resolve, reject) => {//Esto devuelve una promise
-            const reader = new FileReader();//
+            const reader = new FileReader();//FileReader(): es una interfaz en JS que permite a las aplicaciones web leer el contenido de archivos.
+            //FileReader() podriamos decir que es como el lector que hace que la pagina web utiliza para abrir y leer ese archivo
+
+                //FileReader lee el contenido de achivos a través de un <input type="file">.
+                //Lo hacemos de forma asincrona para que no bloquee la ejecucion de otras tareas en la pagina web.
+
+                //Podriamos sacar como conclusion de que es una herramienta que nos permite que las paginas web interactuen con archivos locales
 
             reader.onload = (e) => {
-                const contenido = e.target.result;
-                const lineas = contenido.split("\n").map(line => line.split(";")); //Procesa el contenido del archivo CSV
+                const contenido = e.target.result;//esto de aca obtiene el contenido del archivo 
+                const lineas = contenido.split("\n").map(line => line.split(";")); 
+                //Aqui realiza dos operaciones importantes
+                    //contenido.split("\n"): esto divide el contenido del archivo en un array de lineas haciendo uso del salto de linea como separador
+                    //.map(line => line.split(";"));: itera sobre cada linea y la divide en un array de valores, usando el punto y coma como separador
+
+                //Esto se hace con la finalidad de convertir el texto plano del archivo CSV en un array de arrays
+
                 const objetos = [];//Inicializa un array vacío llamado objetos
 
                 for (let i = 1; i < lineas.length; i++) {
